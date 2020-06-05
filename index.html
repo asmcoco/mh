@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="jquery-3.3.1.min.js"></script>
+    <title>Document</title>
+</head>
+<style>
+* {
+  margin: 0; padding: 0;
+}
+ 
+#container {
+  overflow: hidden;
+  height:100vh;
+  background: #edeae8;
+  position: relative;
+}
+ 
+video {
+  position: absolute;
+   
+  /* Vertical and Horizontal center*/
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+
+body{
+    direction: rtl;
+    margin: 0;
+    background-color: rgb(0, 0, 58);
+}
+.form-group{
+    position: relative;
+}
+.my-form{
+    padding: 100px;
+    background-image: url(back15.png);
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: cover;
+    border: 5px rgb(31, 31, 31) solid;
+    border-radius: 5%;
+    width: 400px;
+    margin: 300px;
+    box-shadow: rgb(56, 56, 155, 0.651) 0px 0px 20px 2px;
+    color: ivory;
+    margin-top: 100px;
+    position: relative;
+}
+
+.form-group{
+       padding-bottom: 1px;
+       position: relative;
+}
+
+.my-form input{
+     padding: 5px;
+     width: 220px;
+     border: 5px rgb(31, 31, 31) solid;
+    background-color: lightblue;
+    position: relative;
+}
+
+
+
+</style>
+<body>
+       
+        <div id="container">
+                <video autoplay muted loop>
+                  <source src="d10a96b98553ac14b88c5392281799d116317202-1080p__24853.mp4 " type="video/mp4">
+                </video>
+
+
+                <form class="my-form" method="get">
+
+                    <div class="form-group">
+                
+                        <input type="text" placeholder="نام" id="n">
+                        <label for="n">:نام را وارد کنید</label>
+                    </div>
+            <br>
+            <div class="form-group">
+                        <input type="text" placeholder="نام خانوادگی" id="ln">
+                        <label for="ln">:نام خانوادگی را وارد کنید</label>
+                    </div>
+            <br>
+            <div class="form-group">
+                        <input type="email" placeholder="ایمیل" value="@gmail.com" id="e">
+                        <label for="e"> :ایمیل را وارد کنید</label>
+                    </div>
+            <br>
+            <div class="form-group">
+                        <input type="password" placeholder="پسورد" id="p">
+                        <label for="p">:پسورد را وارد کنید</label>
+                    </div>
+            <br>
+            <div class="form-group">
+                        <input type="date" id="d">
+                        <label for="d">:تاریخ تولد</label>
+                    </div> 
+            <br>
+            <div class="form-group">
+                        <input type="radio" name="gender" id="r">
+                        <label for="r">مرد</label>
+            </div>
+            <br>
+            <div class="form-group">
+                        <input type="radio" name="gender" id="ra">
+                        <label for="ra">زن</label>
+            </div>        
+             <br>
+            
+                        <input type="submit" value="sabt">
+             
+            
+                </form>
+
+               
+              </div>
+
+
+              <div id="video_cover"></div>
+
+              <script>
+              var video = document.querySelector('video')
+  , container = document.querySelector('#container');
+ 
+var setVideoDimensions = function () {
+  // Video's intrinsic dimensions
+  var w = video.videoWidth
+    , h = video.videoHeight;
+   
+  // Intrinsic Ratio
+  // Will be more than 1 if W > H and less if W < H
+  var videoRatio = (w / h).toFixed(2);
+   
+  // Get the container's computed styles
+  //
+  // Also calculate the min dimensions required (this will be
+  // the container dimentions)
+  var containerStyles = window.getComputedStyle(container)
+    , minW = parseInt( containerStyles.getPropertyValue('width') )
+    , minH = parseInt( containerStyles.getPropertyValue('height') );
+   
+  // What's the min:intrinsic dimensions
+  //
+  // The idea is to get which of the container dimension
+  // has a higher value when compared with the equivalents
+  // of the video. Imagine a 1200x700 container and
+  // 1000x500 video. Then in order to find the right balance
+  // and do minimum scaling, we have to find the dimension
+  // with higher ratio.
+  //
+  // Ex: 1200/1000 = 1.2 and 700/500 = 1.4 - So it is best to
+  // scale 500 to 700 and then calculate what should be the
+  // right width. If we scale 1000 to 1200 then the height
+  // will become 600 proportionately.
+  var widthRatio = minW / w
+    , heightRatio = minH / h;
+   
+  // Whichever ratio is more, the scaling
+  // has to be done over that dimension
+  if (widthRatio > heightRatio) {
+    var newWidth = minW;
+    var newHeight = Math.ceil( newWidth / videoRatio );
+  }
+  else {
+    var newHeight = minH;
+    var newWidth = Math.ceil( newHeight * videoRatio );
+  }
+   
+  video.style.width = newWidth + 'px';
+  video.style.height = newHeight + 'px';
+};
+ 
+video.addEventListener('loadedmetadata', setVideoDimensions, false);
+window.addEventListener('resize', setVideoDimensions, false);
+
+              </script>
+</body>
+</html>
